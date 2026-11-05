@@ -1,0 +1,17 @@
+# Java e Maven (spd/)
+target/
+*.class
+*.iml
+.idea/
+.vscode/
+
+# Bases locais criadas ao executar a gestão (spd/mellona-gestao)
+*.sqlite
+
+# Compilação local do Arduino ou PlatformIO (ssu/)
+build/
+.pio/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db

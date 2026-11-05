@@ -1,0 +1,56 @@
+@startuml ihc-casos-de-uso-slide
+skinparam monochrome true
+skinparam shadowing false
+skinparam dpi 150
+skinparam defaultFontSize 17
+skinparam packageStyle rectangle
+skinparam nodesep 6
+skinparam ranksep 40
+left to right direction
+
+actor "Apicultor" as AP
+actor "Técnico de\nmanutenção" as TM
+actor "Central do\napiário" as CA
+
+rectangle "Aplicativo Mellona" {
+  usecase "Entrar (RF-01)" as U01
+  usecase "Consultar painel (RF-02)" as U02
+  usecase "Ver condições da colmeia (RF-03)" as U03
+  usecase "Consultar histórico (RF-04)" as U04
+  usecase "Ver equipamentos (RF-05)" as U05
+  usecase "Acompanhar alertas (RF-06)" as U06
+  usecase "Ver por que a sirene tocou (RF-07)" as U07
+  usecase "Receber notificação (RF-08)" as U08
+  usecase "Ligar/desligar proteção (RF-09)" as U09
+  usecase "Registrar visita (RF-10)" as U10
+  usecase "Ativar modo visita (RF-11)" as U11
+  usecase "Modo visita no apiário (RF-12)" as U12
+  usecase "Registrar revisão (RF-13)" as U13
+  usecase "Iniciar manutenção (RF-14)" as U14
+}
+
+AP --> U01
+AP --> U02
+AP --> U03
+AP --> U04
+AP --> U06
+AP --> U08
+AP --> U09
+AP --> U10
+AP --> U11
+AP --> U12
+AP --> U13
+TM --> U01
+TM --> U05
+TM --> U06
+TM --> U14
+
+U09 --> CA
+U11 --> CA
+U12 --> CA
+
+U11 ..> U10 : <<include>>
+U12 ..> U11 : <<extend>>
+U07 ..> U06 : <<extend>>
+U14 ..> U06 : <<extend>>
+@enduml

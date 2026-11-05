@@ -1,0 +1,29 @@
+@startuml estados-seguranca-apiario
+title Estados da segurança de um apiário (RN-31, RN-33, RN-34, RN-63, RN-69 a RN-72)
+state "Desarmada" as Desarmada
+state "Armada" as Armada
+state "Manutenção autorizada" as Manutencao
+state "Sinalizando" as Sinalizando
+state "Intervalo de proteção" as Protecao
+
+[*] --> Desarmada
+Desarmada --> Armada : armar (HU-34)
+Armada --> Desarmada : desarmar (HU-34)
+Armada --> Manutencao : autorização confirmada
+Manutencao --> Armada : prazo expirado ou encerramento
+Armada --> Sinalizando : ocorrência correlacionada (RN-31)
+Sinalizando --> Protecao : duração encerrada (PAR-11)
+Sinalizando --> Manutencao : autorização confirmada (RN-71)
+Sinalizando --> Desarmada : desarmar
+Protecao --> Armada : intervalo encerrado (PAR-12)
+Protecao --> Manutencao : autorização confirmada
+Protecao --> Desarmada : desarmar
+
+Desarmada : detecções apenas registradas
+Armada : detecções podem acionar a sinalização
+Manutencao : detecções apenas registradas
+Sinalizando : som (dia) ou som + luz (noite)
+Protecao : novas ocorrências registradas,\nsem novo acionamento (RN-69)
+
+note "Segurança degradada (RN-72) é condição sobreposta a qualquer estado:\nas detecções do sensor de presença em falha não entram na correlação." as N1
+@enduml

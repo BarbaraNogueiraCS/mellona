@@ -1,0 +1,128 @@
+@startuml classes-gestao
+' Diagrama de classes da gestão (base relacional, ORM). Fonte: ERS v1.1, seções 13.1 a 13.3.
+' Classes em cinza estão previstas para a Etapa 2.
+title Mellona — modelo de classes da gestão (ORMLite + SQLite)
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype polyline
+skinparam nodesep 30
+skinparam ranksep 45
+skinparam defaultFontSize 13
+skinparam class {
+  BackgroundColor #FFFDF7
+  BorderColor #5C4A36
+  ArrowColor #5C4A36
+  BackgroundColor<<Etapa 2>> #F2F2F2
+  BorderColor<<Etapa 2>> #9A9A9A
+  FontColor<<Etapa 2>> #666666
+  AttributeFontColor<<Etapa 2>> #666666
+}
+hide empty methods
+
+abstract class EntidadeBase {
+  id : int
+  uuid : UUID  «única, RN-73»
+  criadoEm : Instant
+  atualizadoEm : Instant  «RN-75»
+}
+note bottom of EntidadeBase
+  Todas as classes do
+  diagrama herdam desta.
+end note
+
+class Usuario {
+  nome : String
+  email : String  «único»
+  ativo : boolean
+}
+class Apiario {
+  nome : String
+  descricaoLocal : String
+  fusoHorario : String
+  ativo : boolean
+}
+class ConfiguracaoSeguranca {
+  inicioDiurno : hora
+  inicioNoturno : hora
+  intervaloCorrelacaoS : int
+  duracaoSinalizacaoS : int
+  intervaloProtecaoS : int
+  duracaoAutorizacaoMin : int
+  armada : boolean
+  versao : int
+}
+class AcessoApiario <<associativa>> {
+  papel : Papel
+  inicio : Instant
+  fim : Instant [0..1]
+}
+class Colmeia {
+  codigo : String  «único, RN-01»
+  dataInstalacao : LocalDate [0..1]
+  ativa : boolean
+}
+class Dispositivo {
+  identificador : String  «único»
+  tipo : TipoDispositivo
+  ativo : boolean
+}
+class AssociacaoDispositivo <<associativa>> {
+  inicio : Instant
+  fim : Instant [0..1]
+}
+class CategoriaAtividade {
+  codigo : String  «único»
+  grupo : GrupoAtividade
+  nome : String
+  exigeJustificativa : boolean
+}
+class Visita {
+  data : Instant
+  descricao : String [0..1]
+}
+class Inspecao {
+  data : Instant
+  rainha : SituacaoRainha [0..1]
+  crias : String [0..1]
+  condicaoColonia : String [0..1]
+  observacoes : String [0..1]
+}
+class AutorizacaoManutencao <<Etapa 2>> {
+  canal : REMOTO | LOCAL
+  inicio : Instant
+  fimPrevisto : Instant
+  estado : EstadoAutorizacao
+}
+class Manutencao <<Etapa 2>> {
+  descricao : String
+  tipo : PREVENTIVA | CORRETIVA
+  prioridade : Prioridade
+  estado : EstadoManutencao
+}
+class Ocorrencia <<Etapa 2>> {
+  tipo, prioridade, estado
+  «réplica do alerta»
+}
+
+Apiario "1" -- "1" ConfiguracaoSeguranca : 1:1 >
+Apiario "1" -- "0..*" Colmeia : 1:N >
+Usuario "1" -- "0..*" AcessoApiario
+AcessoApiario "0..*" -- "1" Apiario
+Dispositivo "1" -- "0..*" AssociacaoDispositivo
+AssociacaoDispositivo "0..*" -- "0..1" Colmeia
+AssociacaoDispositivo "0..*" -- "1" Apiario
+Colmeia "1" -- "0..*" Inspecao : 1:N >
+Inspecao "0..*" -- "1" Usuario : responsável >
+Apiario "1" -- "0..*" Visita : 1:N >
+Visita "0..*" -- "1" Usuario : responsável >
+Visita "0..*" -- "1" CategoriaAtividade : motivo >
+Visita "1" -- "0..1" AutorizacaoManutencao : 1:1 >
+Manutencao "0..*" -- "1" CategoriaAtividade : categoria >
+Manutencao "0..*" -- "1" Apiario
+Manutencao "0..*" -- "0..1" Ocorrencia : origem >
+
+note "N:N Usuário–Apiário,\ncom papel e período" as N1
+N1 .. AcessoApiario
+note "N:N Dispositivo–Colmeia,\ncom histórico (RN-03, RN-04)" as N2
+N2 .. AssociacaoDispositivo
+@enduml

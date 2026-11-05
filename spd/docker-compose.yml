@@ -1,0 +1,23 @@
+# Serviços de apoio para desenvolvimento: MongoDB (monitoramento) e Redis (integrador, Etapa 2).
+# Subir:   docker compose up -d
+# Parar:   docker compose down        (os dados ficam nos volumes)
+services:
+  mongodb:
+    image: mongodb/mongodb-community-server:latest
+    container_name: mellona-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+  redis:
+    image: redis:7
+    container_name: mellona-redis
+    # appendonly: grava cada comando em disco, para a fila de operações sobreviver a um reinício
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+volumes:
+  mongodb_data:
+  redis_data:

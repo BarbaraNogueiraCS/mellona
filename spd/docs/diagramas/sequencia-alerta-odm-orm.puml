@@ -1,0 +1,35 @@
+@startuml sequencia-alerta-odm-orm
+' Alerta criado no monitoramento chega à gestão (ODM → ORM), onde vira manutenção (HU-30, HU-38).
+title Alerta do monitoramento chega à gestão (ODM → ORM)
+skinparam shadowing false
+skinparam defaultFontSize 13
+skinparam sequenceMessageAlign left
+skinparam maxMessageSize 170
+skinparam ParticipantPadding 6
+skinparam ParticipantBackgroundColor #FFFDF7
+skinparam ParticipantBorderColor #5C4A36
+skinparam ArrowColor #5C4A36
+autonumber
+
+participant "Ponte MQTT\n(SSU)" as Central
+participant "API REST\nOcorrencias" as Api
+database "MongoDB" as M
+participant "Publicador\nRedis #2" as Pub
+queue "Redis" as R
+participant "Ouvinte\n(integrador)" as L
+participant "Transformador\nODM → ORM" as T
+database "SQLite" as SQL
+participant "Gestão\n(JavaFX)" as G
+actor "Técnica\n(Carla)" as U
+
+Central -> Api : POST /api/v1/ocorrencias com o evento ocorrencia.suspeita enviado pela central do apiário
+Api -> M : save(ocorrência ATIVO)
+Api -> Pub : ocorrência criada
+Pub -> R : RPUSH fila + PUBLISH mellona:crud
+R --> L : mensagem
+L -> T : origem MONITORAMENTO → destino GESTAO
+T -> SQL : upsert Ocorrencia (réplica) por uuid
+U -> G : abre o alerta e cria uma manutenção a partir dele (HU-30, Etapa 2)
+G -> SQL : create(manutenção) com origem = uuid da ocorrência
+note over G, SQL : o uuid da ocorrência é o mesmo\nnas duas bases (RN-73)
+@enduml

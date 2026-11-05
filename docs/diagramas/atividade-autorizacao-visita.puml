@@ -1,0 +1,33 @@
+@startuml atividade-autorizacao-visita
+title Autorização de visita (HU-16, HU-35, RN-63, RN-71, RN-76)
+start
+:Apicultor registra a visita com motivo CM ou IB;
+if (Há conexão com o apiário?) then (sim)
+  :Apicultor solicita a autorização\nna interface de acompanhamento;
+  :Sistema envia comando com\nidentificador e prazo de validade;
+  if (Comando recebido dentro do prazo?) then (não)
+    :Registrar comando como expirado;
+    :Informar a falha ao apicultor;
+    stop
+  endif
+else (não)
+  :Apicultor apresenta credencial\nno mecanismo local do apiário;
+endif
+if (Usuário autorizado para o apiário?) then (não)
+  :Recusar e manter a proteção;
+  :Registrar a tentativa;
+  stop
+endif
+:Ativar suspensão pela duração configurada (PAR-13);
+if (Sinalização em curso?) then (sim)
+  :Encerrar a sinalização;
+endif
+:Emitir confirmação local;
+:Enviar confirmação à origem\nquando houver conexão;
+repeat
+  :Registrar detecções sem acionar a sinalização;
+repeat while (Prazo vigente e sem pedido de encerramento?) is (sim) not (não)
+:Restabelecer a proteção;
+:Registrar encerramento ou expiração;
+stop
+@enduml

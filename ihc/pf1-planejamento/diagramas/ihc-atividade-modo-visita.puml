@@ -1,0 +1,37 @@
+@startuml ihc-atividade-modo-visita
+skinparam monochrome true
+skinparam shadowing false
+skinparam dpi 150
+skinparam defaultFontSize 13
+title Ativar o modo visita (RF-10, RF-11, RF-12)
+
+start
+:**Apicultor:** registra a visita com o motivo\n(manutenção física ou manejo);
+:**Apicultor:** toca em "Ativar modo visita";
+:**Aplicativo:** pede confirmação e informa\nque a sirene ficará suspensa;
+:**Apicultor:** confirma;
+if (Há conexão com o apiário?) then (sim)
+  :**Aplicativo:** envia o pedido com prazo\nde validade e mostra "Solicitado";
+  if (A central recebeu o pedido\ndentro do prazo?) then (sim)
+    :**Central do apiário:** suspende a sirene\npelo tempo definido e confirma;
+    :**Aplicativo:** mostra "Modo visita\nconfirmado" e o tempo restante;
+  else (não)
+    :**Aplicativo:** mostra a falha e mantém\na proteção ligada;
+    stop
+  endif
+else (não)
+  :**Aplicativo:** mostra "Sem conexão" e as\ninstruções do modo visita no apiário;
+  :**Apicultor:** digita o código\nna central do apiário;
+  if (Código válido?) then (sim)
+    :**Central do apiário:** suspende a sirene\ne confirma com bipe curto e luz de estado;
+  else (não)
+    :**Central do apiário:** recusa e mantém\na proteção ligada;
+    stop
+  endif
+endif
+:**Apicultor:** faz a visita e registra as revisões;
+:**Apicultor:** encerra o modo visita\nou aguarda o fim do prazo;
+:**Central do apiário:** restabelece a proteção;
+:**Aplicativo:** atualiza o histórico\nquando houver conexão;
+stop
+@enduml

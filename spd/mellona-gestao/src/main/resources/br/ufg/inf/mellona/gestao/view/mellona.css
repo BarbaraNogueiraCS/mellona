@@ -1,0 +1,77 @@
+/* Cores e tipos do guia de estilo do Mellona (IHC, PF2, seção 2.3). */
+.root {
+    -mellona-cera: #FFF8EA;
+    -mellona-propolis: #2B1D0E;
+    -mellona-casca: #5C4A36;
+    -mellona-moldura: #8C7558;
+    -mellona-mel-escuro: #8A4B00;
+    -mellona-ceu: #1F5FAD;
+    -mellona-ferroada: #B3261E;
+    -fx-font-family: "Atkinson Hyperlegible", "System";
+    -fx-font-size: 16px;
+    -fx-text-fill: -mellona-propolis;
+}
+
+.tela {
+    -fx-background-color: -mellona-cera;
+}
+
+.sobretitulo {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -mellona-casca;
+}
+
+.titulo {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -mellona-propolis;
+}
+
+.rotulo {
+    -fx-font-weight: bold;
+    -fx-text-fill: -mellona-propolis;
+}
+
+.text-field {
+    -fx-pref-height: 48px;
+    -fx-border-color: -mellona-moldura;
+    -fx-border-width: 2px;
+    -fx-background-color: white;
+}
+
+.text-field:focused {
+    -fx-border-color: -mellona-ceu;
+}
+
+.button {
+    -fx-pref-height: 48px;
+    -fx-font-weight: bold;
+    -fx-padding: 0 16 0 16;
+}
+
+.button.principal {
+    -fx-background-color: -mellona-mel-escuro;
+    -fx-text-fill: white;
+}
+
+.button.secundario {
+    -fx-background-color: transparent;
+    -fx-border-color: -mellona-mel-escuro;
+    -fx-border-width: 2px;
+    -fx-text-fill: -mellona-mel-escuro;
+}
+
+.button:focused {
+    -fx-border-color: -mellona-ceu;
+    -fx-border-width: 3px;
+}
+
+.mensagem {
+    -fx-text-fill: -mellona-casca;
+}
+
+.mensagem.erro {
+    -fx-text-fill: -mellona-ferroada;
+    -fx-font-weight: bold;
+}

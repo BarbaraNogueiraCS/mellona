@@ -1,0 +1,57 @@
+@startuml casos-de-uso-mellona
+left to right direction
+skinparam packageStyle rectangle
+
+actor "Apicultor" as AP
+actor "Técnico de manutenção" as TM
+actor "Administrador" as AD
+actor "Dispositivos do apiário" as DV
+
+rectangle "Mellona" {
+  usecase "Autenticar-se\n(HU-01)" as UC01
+  usecase "Gerenciar usuários e acessos\n(HU-02)" as UC02
+  usecase "Gerenciar apiários e colmeias\n(HU-03, HU-04)" as UC03
+  usecase "Associar dispositivos\n(HU-05)" as UC05
+  usecase "Configurar parâmetros de segurança\n(HU-37)" as UC37
+  usecase "Consultar painel e condições\n(HU-06, HU-23)" as UC23
+  usecase "Consultar histórico\n(HU-07)" as UC07
+  usecase "Acompanhar alertas\n(HU-17, HU-39)" as UC17
+  usecase "Armar ou desarmar a segurança\n(HU-34)" as UC34
+  usecase "Registrar visita\n(HU-33)" as UC33
+  usecase "Autorizar visita\n(HU-16)" as UC16
+  usecase "Autorizar visita localmente\n(HU-35)" as UC35
+  usecase "Registrar inspeção\n(HU-19)" as UC19
+  usecase "Gerenciar manutenções\n(HU-20, HU-29)" as UC20
+  usecase "Criar manutenção a partir de alerta\n(HU-30)" as UC30
+  usecase "Detectar e correlacionar eventos\n(HU-14, HU-26)" as UC14
+  usecase "Acionar sinalização\n(HU-27)" as UC27
+  usecase "Indicar segurança degradada\n(HU-36)" as UC36
+}
+
+AP --> UC01
+AP --> UC03
+AP --> UC23
+AP --> UC07
+AP --> UC17
+AP --> UC34
+AP --> UC33
+AP --> UC16
+AP --> UC35
+AP --> UC19
+AP --> UC20
+TM --> UC01
+TM --> UC05
+TM --> UC17
+TM --> UC20
+AD --> UC01
+AD --> UC02
+AD --> UC05
+AD --> UC37
+DV --> UC14
+DV --> UC36
+
+UC16 ..> UC33 : <<include>>
+UC35 ..> UC16 : <<extend>>
+UC30 ..> UC20 : <<extend>>
+UC27 ..> UC14 : <<extend>>
+@enduml

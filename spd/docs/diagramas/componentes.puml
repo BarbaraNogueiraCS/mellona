@@ -1,0 +1,64 @@
+@startuml componentes
+' Arquitetura de componentes do Mellona em SPD, com as pontas de IHC e SSU.
+title Mellona — componentes da persistência e da integração
+skinparam shadowing false
+skinparam defaultFontSize 13
+skinparam componentStyle rectangle
+skinparam rectangle {
+  BackgroundColor #FFFDF7
+  BorderColor #5C4A36
+}
+skinparam database {
+  BackgroundColor #FCE7B2
+  BorderColor #5C4A36
+}
+skinparam ArrowColor #5C4A36
+skinparam nodesep 25
+skinparam ranksep 40
+
+package "I1 — Gestão (desktop, mellona-gestao)" as G {
+  [Telas JavaFX\n(view: FXML)] as View
+  [Controladores\n(controller)] as Ctl
+  [Casos de uso e entidades\n(model: Cadastro*, Repositorio)] as Model
+  [Publicador Redis\n(Etapa 2)] as PubG
+}
+database "SQLite\n(arquivo)" as SQLite
+
+package "I3 — Monitoramento (API, mellona-monitoramento)" as M {
+  [API REST JSON\n(OcorrenciaController,\nMedicaoController)] as Api
+  [Repositórios Spring Data\n(OcorrenciaRepository,\nMedicaoRepository)] as RepoM
+  [Publicador Redis #2\n(Etapa 2)] as PubM
+}
+database "MongoDB" as Mongo
+
+package "Integrador (middleware, mellona-integrador)" as I {
+  [Ouvinte Redis\n(SUBSCRIBE mellona:crud)] as Listener
+  [ControleDeAplicacao\n(origem, repetição, conflito)] as Controle
+  [Transformador\nORM → ODM] as T1
+  [Transformador\nODM → ORM] as T2
+}
+database "Redis\ncanal mellona:crud\nlistas :fila e :pendentes" as Redis
+
+[Aplicativo de acompanhamento\n(protótipo de IHC)] as App
+[Central do apiário\n(SSU, ESP32 + MQTT)] as Central
+
+View --> Ctl
+Ctl --> Model
+Model --> SQLite : ORMLite (JDBC)
+Model --> PubG : operação gravada
+PubG --> Redis : RPUSH + PUBLISH
+
+App --> Api : HTTP REST / JSON
+Central --> Api : eventos guardados\n(ponte MQTT, SSU)
+Api --> RepoM
+RepoM --> Mongo : ODM
+Api --> PubM : alerta criado ou alterado
+PubM --> Redis : RPUSH + PUBLISH
+
+Redis --> Listener : notificação + fila
+Listener --> Controle
+Controle --> T1
+Controle --> T2
+T1 --> Mongo : upsert por uuid
+T2 --> SQLite : upsert por uuid
+@enduml

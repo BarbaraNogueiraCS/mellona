@@ -1,0 +1,46 @@
+@startuml atividade-sinalizacao
+title Decisão de sinalização de intrusão (RN-31, RN-58 a RN-72)
+start
+:Detecção confirmada de presença,\nmovimentação anormal ou possível tombamento;
+:Registrar detecção com instante de ocorrência;
+if (Presença vinda de sensor\nem estado degradado? (RN-72)) then (sim)
+  :Registrar sem usar na correlação;
+  stop
+endif
+if (Segurança do apiário armada?) then (não)
+  :Registrar avaliação sem acionamento;
+  stop
+endif
+if (Autorização de visita\nativa e confirmada?) then (sim)
+  :Registrar avaliação sem acionamento;
+  stop
+endif
+if (Detecção complementar no mesmo apiário\ndentro do intervalo de correlação?) then (não)
+  :Manter detecção na janela de correlação;
+  stop
+endif
+:Criar ocorrência suspeita correlacionada;
+if (Sinalização ou intervalo de proteção\nem curso no apiário?) then (sim)
+  :Vincular à ocorrência em curso\nsem novo acionamento (RN-69);
+  stop
+endif
+if (Horário local válido?) then (sim)
+  :Determinar o período pelos\nlimites configurados (RN-60);
+else (não)
+  :Adotar período noturno e\nregistrar horário inválido (RN-64);
+endif
+if (Período noturno?) then (sim)
+  fork
+    :Acionar sinal sonoro;
+  fork again
+    :Acender iluminação do apiário;
+  end fork
+else (não)
+  :Acionar somente o sinal sonoro;
+endif
+:Registrar recursos acionados e motivo (RNF-21);
+:Manter sinalização pela duração configurada (PAR-11);
+:Encerrar sinalização;
+:Iniciar intervalo de proteção (PAR-12);
+stop
+@enduml

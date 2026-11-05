@@ -1,0 +1,78 @@
+@startuml documentos-monitoramento
+' Modelo de documentos do monitoramento (MongoDB, ODM). Classes em cinza: Etapa 2.
+title Mellona — documentos do monitoramento (Spring Data MongoDB)
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam linetype polyline
+skinparam nodesep 40
+skinparam ranksep 50
+skinparam defaultFontSize 13
+skinparam class {
+  BackgroundColor #FFFDF7
+  BorderColor #5C4A36
+  ArrowColor #5C4A36
+  BackgroundColor<<Etapa 2>> #F2F2F2
+  BorderColor<<Etapa 2>> #9A9A9A
+  FontColor<<Etapa 2>> #666666
+  AttributeFontColor<<Etapa 2>> #666666
+}
+hide empty methods
+
+class Ocorrencia <<coleção ocorrencias>> {
+  _id : ObjectId
+  uuid : String  «único»
+  apiarioUuid : String
+  colmeiaUuid : String [0..1]
+  dispositivoId : String [0..1]
+  tipo : TipoOcorrencia
+  prioridade : Prioridade
+  estado : ATIVO | RECONHECIDO | RESOLVIDO
+  instante : Instant
+  periodoDia : DIURNO | NOTURNO
+  motivoDecisao : String
+  eventosRelacionados : String[]
+}
+class Acionamento <<embutido>> {
+  recurso : SOM | LUZ
+  inicio : Instant
+  fim : Instant
+}
+class Medicao <<coleção medicoes>> {
+  _id : ObjectId
+  eventId : String  «único, RN-67»
+  eventType : String
+  deviceId : String
+  entityId : String
+  eventTime : Instant
+  sequence : long
+  value : Double [0..1]
+  unit : C | %RH
+  quality : Qualidade
+  receivedAt : Instant
+}
+class Deteccao <<Etapa 2>> {
+  eventId : String  «único»
+  tipo : PRESENCA | MOVIMENTACAO | TOMBAMENTO
+  eventTime : Instant
+}
+class CadastroReplicado <<Etapa 2>> {
+  uuid, código ou nome, ativo
+  «Apiário, Colmeia e Dispositivo
+  copiados da gestão»
+}
+
+Ocorrencia *-- "0..*" Acionamento : acionamentos >
+Ocorrencia ..> "0..*" Deteccao : eventosRelacionados\n(eventId) >
+Ocorrencia ..> CadastroReplicado : apiarioUuid\n(RN-73) >
+Medicao ..> CadastroReplicado : entityId\n"colmeia:A1-07" >
+
+note right of Acionamento
+  1:N embutido: os acionamentos
+  só existem dentro da ocorrência
+  e são lidos com ela.
+end note
+note bottom of Medicao
+  Campos com os nomes do contrato
+  de eventos de SSU (ERS, 13.4.1).
+end note
+@enduml

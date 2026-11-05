@@ -1,0 +1,4 @@
+# Wokwi Library List
+# Biblioteca adicional usada pelo sketch.ino (montagem dos eventos JSON).
+# Wire.h faz parte do núcleo do ESP32; MPU6050 e DS1307 são lidos direto pelos registradores.
+ArduinoJson

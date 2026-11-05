@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Mellona — Software para Persistência de Dados (INF/UFG)
+  Projeto Maven agregador com os três módulos do sistema:
+    mellona-gestao        I1: aplicação desktop JavaFX (MVC) + ORM (ORMLite/SQLite)
+    mellona-monitoramento I3: API REST JSON (Spring Boot) + ODM (Spring Data MongoDB)
+    mellona-integrador    middleware de sincronização entre as bases (Redis Pub/Sub, Etapa 2)
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>br.ufg.inf.mellona</groupId>
+    <artifactId>mellona-spd</artifactId>
+    <version>0.1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>Mellona — persistência de dados</name>
+
+    <modules>
+        <module>mellona-gestao</module>
+        <module>mellona-monitoramento</module>
+        <module>mellona-integrador</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.release>17</maven.compiler.release>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <junit.version>5.10.2</junit.version>
+    </properties>
+
+    <build>
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-surefire-plugin</artifactId>
+                    <version>3.2.5</version>
+                </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-javadoc-plugin</artifactId>
+                    <version>3.6.3</version>
+                    <configuration>
+                        <doclint>none</doclint>
+                        <encoding>UTF-8</encoding>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+</project>

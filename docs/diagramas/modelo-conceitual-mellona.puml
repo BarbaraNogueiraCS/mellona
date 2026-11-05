@@ -1,0 +1,166 @@
+@startuml modelo-conceitual-mellona
+hide methods
+hide empty members
+skinparam classAttributeIconSize 0
+
+package "Gestão" {
+  class Usuario {
+    uuid : UUID
+    nome : Texto
+    email : Texto
+    ativo : Booleano
+  }
+  class AcessoApiario {
+    papel : Papel
+    inicio : DataHora
+    fim : DataHora [0..1]
+  }
+  class Apiario {
+    uuid : UUID
+    nome : Texto
+    descricaoLocal : Texto
+    fusoHorario : Texto
+    ativo : Booleano
+  }
+  class ConfiguracaoSeguranca {
+    inicioDiurno : Hora
+    inicioNoturno : Hora
+    intervaloCorrelacaoS : Inteiro
+    duracaoSinalizacaoS : Inteiro
+    intervaloProtecaoS : Inteiro
+    duracaoAutorizacaoMin : Inteiro
+    armada : Booleano
+    versao : Inteiro
+  }
+  class Colmeia {
+    uuid : UUID
+    codigo : Texto (único)
+    dataInstalacao : Data
+    ativa : Booleano
+  }
+  class Dispositivo {
+    uuid : UUID
+    identificador : Texto (único)
+    tipo : TipoDispositivo
+    ativo : Booleano
+  }
+  class AssociacaoDispositivo {
+    inicio : DataHora
+    fim : DataHora [0..1]
+  }
+  class Inspecao {
+    uuid : UUID
+    data : DataHora
+    rainha : Texto
+    crias : Texto
+    condicaoColonia : Texto
+    observacoes : Texto
+  }
+  class Manutencao {
+    uuid : UUID
+    descricao : Texto
+    tipo : TipoManutencao
+    prioridade : Prioridade
+    estado : EstadoManutencao
+    dataPrevista : Data [0..1]
+    dataConclusao : DataHora [0..1]
+    descricaoConclusao : Texto [0..1]
+  }
+  class Visita {
+    uuid : UUID
+    data : DataHora
+    descricao : Texto [0..1]
+  }
+  class AutorizacaoManutencao {
+    uuid : UUID
+    canal : CanalAutorizacao
+    inicio : DataHora
+    fimPrevisto : DataHora
+    fimEfetivo : DataHora [0..1]
+    estado : EstadoAutorizacao
+  }
+  class Colheita <<P1>> {
+    uuid : UUID
+    data : Data
+    quantidadeKg : Decimal
+  }
+  class ColheitaColmeia <<P1>>
+}
+
+package "Monitoramento" {
+  class Medicao {
+    eventId : UUID
+    grandeza : Texto
+    valor : Decimal
+    unidade : Texto
+    instanteOcorrencia : DataHora
+    instanteRecebimento : DataHora
+    qualidade : Qualidade
+  }
+  class Deteccao {
+    eventId : UUID
+    tipo : TipoDeteccao
+    sequencia : Inteiro
+    valor : Decimal [0..1]
+    instanteOcorrencia : DataHora
+    qualidade : Qualidade
+  }
+  class Ocorrencia {
+    uuid : UUID
+    tipo : TipoOcorrencia
+    prioridade : Prioridade
+    estado : EstadoAlerta
+    instante : DataHora
+    periodoDia : PeriodoDia [0..1]
+    motivoDecisao : Texto
+  }
+  class Acionamento {
+    recurso : Recurso
+    inicio : DataHora
+    fim : DataHora
+  }
+}
+
+package "Referência" {
+  class CategoriaAtividade {
+    codigo : Texto
+    grupo : GrupoAtividade
+    nome : Texto
+    exigeJustificativa : Booleano
+  }
+}
+
+Usuario "1" -- "0..*" AcessoApiario
+Apiario "1" -- "0..*" AcessoApiario
+Apiario "1" -- "1" ConfiguracaoSeguranca
+Apiario "1" -- "0..*" Colmeia
+Dispositivo "1" -- "0..*" AssociacaoDispositivo
+Apiario "1" -- "0..*" AssociacaoDispositivo
+Colmeia "0..1" -- "0..*" AssociacaoDispositivo
+Colmeia "1" -- "0..*" Inspecao
+Usuario "1" -- "0..*" Inspecao : responsável
+Apiario "1" -- "0..*" Visita
+Usuario "1" -- "0..*" Visita : responsável
+CategoriaAtividade "1" -- "0..*" Visita : motivo
+Visita "1" -- "0..1" AutorizacaoManutencao
+Apiario "1" -- "0..*" Manutencao
+Colmeia "0..1" -- "0..*" Manutencao
+Dispositivo "0..1" -- "0..*" Manutencao
+Usuario "0..1" -- "0..*" Manutencao : responsável
+CategoriaAtividade "1" -- "0..*" Manutencao : categoria
+Ocorrencia "0..1" -- "0..*" Manutencao : origem
+Inspecao "0..1" -- "0..*" Manutencao
+Dispositivo "1" -- "0..*" Medicao
+Colmeia "0..1" -- "0..*" Medicao
+Dispositivo "1" -- "0..*" Deteccao
+Apiario "1" -- "0..*" Deteccao
+Colmeia "0..1" -- "0..*" Deteccao
+Ocorrencia "0..1" -- "0..*" Deteccao : correlaciona
+Apiario "1" -- "0..*" Ocorrencia
+Colmeia "0..1" -- "0..*" Ocorrencia
+Dispositivo "0..1" -- "0..*" Ocorrencia
+Ocorrencia "1" -- "0..*" Acionamento
+Apiario "1" -- "0..*" Colheita
+Colheita "1" -- "1..*" ColheitaColmeia
+Colmeia "1" -- "0..*" ColheitaColmeia
+@enduml

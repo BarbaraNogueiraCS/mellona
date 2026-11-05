@@ -1,0 +1,54 @@
+@startuml sequencia-colmeia-orm-odm
+' Inclusão de uma colmeia na gestão e sua propagação ao monitoramento (ORM → ODM).
+' Etapa 1: regras e gravação do cadastro (passos 2 a 5). Etapa 2: tela de colmeias, fila de saída e passos 7 em diante.
+title Cadastro de colmeia na gestão chega ao monitoramento (ORM → ODM)
+skinparam shadowing false
+skinparam defaultFontSize 13
+skinparam maxMessageSize 170
+skinparam ParticipantPadding 6
+skinparam BoxPadding 6
+skinparam sequenceMessageAlign left
+skinparam ParticipantBackgroundColor #FFFDF7
+skinparam ParticipantBorderColor #5C4A36
+skinparam ArrowColor #5C4A36
+autonumber
+
+actor "Administrador" as U
+participant "Tela\n(controller)" as Tela
+participant "Cadastro\nColmeias" as Cad
+database "SQLite" as SQL
+participant "Publicador" as Pub
+queue "Redis" as R
+participant "Ouvinte\n(integrador)" as L
+participant "Controle\nDeAplicacao" as C
+participant "Transformador\nORM → ODM" as T
+database "MongoDB" as M
+
+U -> Tela : "Salvar colmeia" A1-07
+Tela -> Cad : cadastrar(apiário, "A1-07")
+Cad -> Cad : confere RN-01 (código único) e RN-02 (apiário ativo)
+Cad -> SQL : create(colmeia) e operação na fila de saída, na mesma transação
+Cad --> Tela : colmeia gravada, com uuid
+Tela --> U : "Colmeia A1-07 cadastrada"
+Pub -> SQL : lê a fila de saída
+Pub -> R : RPUSH mellona:crud:fila {operação em JSON}
+Pub -> R : PUBLISH mellona:crud {operacaoId}
+R --> L : mensagem do canal
+L -> R : LMOVE da fila para a lista em processamento
+L -> C : decidir(operação)
+alt nova e mais recente
+  C --> L : APLICAR
+  L -> T : transformar(dados)
+  T -> M : upsert por uuid (RN-73)
+  alt MongoDB respondeu
+    L -> R : remove da lista em processamento
+  else MongoDB indisponível
+    L -> R : RPUSH mellona:crud:pendentes
+    note right of L : reprocessada sozinha quando\no MongoDB voltar (RNF-22)
+  end
+else já aplicada, ou nascida no próprio MongoDB
+  C --> L : IGNORAR (RN-74)
+else mais antiga que a versão do destino
+  C --> L : DESCARTAR e registrar para auditoria (RN-75)
+end
+@enduml
