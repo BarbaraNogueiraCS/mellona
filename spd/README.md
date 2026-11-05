@@ -4,9 +4,10 @@ O Mellona monitora e protege apiários e colmeias em áreas rurais. Esta pasta t
 
 | Item | Registro |
 | --- | --- |
-| Equipe | Bárbara Nogueira (projeto individual) · GitHub: _a preencher_ |
+| Equipe | Bárbara Nogueira (projeto individual) · GitHub: [BarbaraNogueiraCS](https://github.com/BarbaraNogueiraCS) |
 | Tema | Mellona — monitoramento e proteção de apiários e colmeias |
 | Etapa | 1 — planejamento e iniciação |
+| Repositório | [BarbaraNogueiraCS/mellona](https://github.com/BarbaraNogueiraCS/mellona.git) |
 | Requisitos | ERS do Mellona v1.1 (seções 7, 8, 11.1, 11.10 e 13); versão atual em [`docs/ERS.md`](../docs/ERS.md) |
 
 O documento da Etapa 1 (introdução, plano, tarefas, modelagem, documentação e testes) está em [`docs/etapa-1.md`](docs/etapa-1.md).
@@ -43,8 +44,8 @@ spd/
 ## Instalar
 
 ```bash
-git clone <url-do-repositório>
-cd <pasta-do-repositório>/spd
+git clone https://github.com/BarbaraNogueiraCS/mellona.git
+cd mellona/spd
 mvn clean install        # baixa as dependências, compila e roda os testes unitários dos três módulos
 ```
 

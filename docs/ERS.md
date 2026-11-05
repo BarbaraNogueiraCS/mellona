@@ -345,7 +345,7 @@ Uma mesma pessoa poderá desempenhar mais de um papel, conforme suas responsabil
 
 | Grupo | Pessoas | Envolvimento |
 |---|---|---|
-| Desenvolvimento | Bárbara Nogueira (projeto individual nas três disciplinas) · usuário GitHub a preencher | Elicitação, design, implementação, testes e documentação |
+| Desenvolvimento | Bárbara Nogueira (projeto individual nas três disciplinas) · GitHub: [BarbaraNogueiraCS](https://github.com/BarbaraNogueiraCS) | Elicitação, design, implementação, testes e documentação |
 | Orientação e avaliação | Docentes das disciplinas de IHC, SPD e SSU | Definem os requisitos acadêmicos e avaliam as entregas |
 | Usuários diretos | Apicultores, técnicos de manutenção e administradores | Participam do brainstorming e da avaliação do protótipo; no estudo de campo, são observados em vídeos que publicam (Seção 6) |
 | Partes afetadas indiretamente | Auxiliares de campo, proprietários das terras, vizinhança, associações e cooperativas | Consultados quando possível; considerados na análise de impacto (3.4) |
@@ -2217,7 +2217,7 @@ As decisões abaixo foram tomadas na versão 1.1 para eliminar ambiguidades. Dev
 | D-06 | Prioridade de RNF-16 elevada para P0 | Manter P1 | Grupo |
 | D-07 | Interface I2 como foco do protótipo de IHC (RES-09) | Prototipar a interface I1 | Grupo |
 | D-08 | Monitoramento de peso mantido como P2 | Promover HU-09 ao MVP | Hipótese H5 |
-| P-01 | Preencher o usuário GitHub em 5.1 | — | Desenvolvedora |
+| P-01 | Usuário GitHub informado em 5.1: BarbaraNogueiraCS | — | Resolvida |
 | P-02 | Aplicar as técnicas de coleta e preencher a Seção 6.5 | — | PF1 de IHC |
 | P-03 | Substituir proto-personas por personas derivadas dos dados | — | PF1 de IHC |
 | P-04 | Mecanismo físico de autorização local: definido na Atividade 01 de SSU como teclado na central com código pessoal | — | Resolvida |
@@ -2417,7 +2417,7 @@ A coluna "Termo sugerido na interface" propõe o vocabulário a ser usado nas te
 | Etapa | Item exigido | Situação | Onde |
 |---|---|---|---|
 | PF1 | Título e descrição | ✅ | Cabeçalho, 1.1 a 1.3 |
-| PF1 | Pessoas-chave (desenvolvimento e uso) | ✅ | 5, 5.1 (usuário GitHub a preencher) |
+| PF1 | Pessoas-chave (desenvolvimento e uso) | ✅ | 5, 5.1 |
 | PF1 | Avaliação de impacto: quem será afetado e quais processos mudam | ✅ | 3.4 |
 | PF1 | Processo de design: nome, funcionamento e aplicação | ✅ | 6.1, 6.2 |
 | PF1 | Duas ou mais técnicas de coleta, aplicação e resultados | 📝 | 6.3, 6.4, Apêndice C; resultados em 6.5 |

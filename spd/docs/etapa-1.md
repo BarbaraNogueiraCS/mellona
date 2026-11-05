@@ -9,7 +9,7 @@ O Mellona guarda os dados em duas bases de naturezas diferentes. Os cadastros da
 | Item | Registro |
 | --- | --- |
 | Disciplina | Software para Persistência de Dados, INF/UFG |
-| Equipe | Bárbara Nogueira (projeto individual); usuário GitHub: a preencher |
+| Equipe | Bárbara Nogueira (projeto individual); usuário GitHub: [BarbaraNogueiraCS](https://github.com/BarbaraNogueiraCS) |
 | Tema | Mellona: monitoramento e proteção de apiários e colmeias |
 | Repositório | Pasta `spd/` do repositório do projeto (`ssu-2026-grupo-N`, nome a confirmar) |
 | Base do projeto | ERS do Mellona v1.1 (seções 7, 8, 11.1, 11.10 e 13); IHC PF1 e PF2; SSU Atividade 01 |
@@ -170,7 +170,8 @@ O código inicial está organizado em três módulos Maven, um por parte da arqu
 **Instalar, executar e testar.** Pré-requisitos: JDK 17 ou mais recente, Maven 3.9 e Docker (só para o MongoDB e o Redis).
 
 ```bash
-git clone <repositório> && cd <pasta-do-repositório>/spd
+git clone https://github.com/BarbaraNogueiraCS/mellona.git
+cd mellona/spd
 mvn clean install                          # baixa dependências, compila e roda os testes unitários
 mvn -pl mellona-gestao javafx:run          # aplicação de gestão; cria mellona-gestao.sqlite
 MELLONA_EXEMPLO=1 mvn -pl mellona-gestao javafx:run   # idem, com dados de demonstração

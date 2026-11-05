@@ -10,9 +10,10 @@ A regra modelada aqui é a que aciona a sirene: **presença e colmeia mexida no 
 | --- | --- |
 | Disciplina | Software para Sistemas Ubíquos, INF/UFG, Prof. Otávio Calaça Xavier |
 | Atividade | Atividade em Grupo 02: processamento e distribuição de responsabilidades |
-| Integrante | Bárbara Nogueira (atividade individual) · GitHub: _a preencher_ |
+| Integrante | Bárbara Nogueira (atividade individual) · GitHub: [BarbaraNogueiraCS](https://github.com/BarbaraNogueiraCS) |
 | Cenário | O mesmo da Atividade 01: Mellona, proteção e monitoramento de apiários e colmeias. Situação modelada: alguém entra no Apiário Serra à noite e mexe na colmeia A1-07 |
 | Onde registrar | `ssu/atividade-02.md`, no mesmo repositório da Atividade 01 |
+| Repositório | [BarbaraNogueiraCS/mellona](https://github.com/BarbaraNogueiraCS/mellona.git) |
 | Base | ERS do Mellona, versão 1.1.1 (11.7, 11.11, 11.12, 12 e 13.4 a 13.6), Atividade 01 e Aula 03 |
 
 **Ajustes desde a Atividade 01.**
@@ -329,7 +330,7 @@ Duas definições nasceram nesta atividade e já foram levadas aos outros artefa
 ## Entrega no repositório
 
 - [ ] Registrar estas respostas em `ssu/atividade-02.md`, com o esquema dos eventos, o pseudocódigo e o diagrama
-- [ ] Preencher o usuário GitHub na seção Identificação
+- [x] Informar o usuário GitHub na seção Identificação
 - [ ] Informar a conclusão na planilha compartilhada
 
 ## Referências

@@ -10,9 +10,10 @@ O Mellona protege e monitora apiários em áreas rurais. A principal decisão de
 | Atividade | Atividade em Grupo 01: análise inicial de um sistema ubíquo |
 | Cenário | Próprio: Mellona, monitoramento e proteção de apiários e colmeias (não é um dos cenários de exemplo) |
 | Onde registrar | `ssu/atividade-01.md`, no repositório do projeto |
+| Repositório | [BarbaraNogueiraCS/mellona](https://github.com/BarbaraNogueiraCS/mellona.git) |
 | Base | ERS do Mellona, versão 1.1, e Aulas 01 a 05 da disciplina |
 
-**Integrante:** Bárbara Nogueira (atividade individual). **Falta preencher:** o usuário GitHub.
+**Integrante:** Bárbara Nogueira (atividade individual). **GitHub:** [BarbaraNogueiraCS](https://github.com/BarbaraNogueiraCS).
 
 As respostas abaixo seguem a ordem do enunciado: Parte 1 (itens 1 a 5) e Parte 2 (itens 6 a 9). Como pede a orientação da atividade, as escolhas de tecnologia são hipóteses iniciais, justificadas pelo problema, e podem mudar nas próximas atividades.
 
@@ -248,7 +249,7 @@ Toda adaptação que reduz a proteção depende de uma ação explícita e confi
 ## Entrega no repositório
 
 - [ ] Criar o repositório do projeto (`ssu-2026-grupo-N`, nome a confirmar com o professor)
-- [ ] Preencher o usuário GitHub na seção Identificação
+- [x] Informar o usuário GitHub na seção Identificação
 - [ ] Registrar estas respostas em atividade-01.md, com o fluxo do item 7
 - [ ] Informar a conclusão na planilha compartilhada
 

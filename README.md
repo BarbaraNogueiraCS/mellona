@@ -6,7 +6,8 @@ O Mellona monitora e protege apiários em áreas rurais. Sensores na área do ap
 
 | Item | Registro |
 | --- | --- |
-| Autora | Bárbara Nogueira · GitHub: _a preencher_ |
+| Autora | Bárbara Nogueira · GitHub: [BarbaraNogueiraCS](https://github.com/BarbaraNogueiraCS) |
+| Repositório | [BarbaraNogueiraCS/mellona](https://github.com/BarbaraNogueiraCS/mellona.git) |
 | Disciplinas | Interação Humano-Computador (IHC), Software para Persistência de Dados (SPD) e Software para Sistemas Ubíquos (SSU) |
 | Requisitos | [ERS do Mellona, versão 1.1.2](docs/ERS.md) |
 
@@ -47,7 +48,7 @@ Os cinco itens que a Aula 01 de SSU pede no README. O detalhe está na [Atividad
 │   └── diagramas/                modelo conceitual, casos de uso, atividades e estados (.puml e .png)
 ├── ihc/
 │   ├── pf1-planejamento/         PF1 e diagramas de IHC
-│   ├── pf2-prototipo/            PF2 completa e resumida, especificação das telas e figuras
+│   ├── pf2-prototipo/            guia de estilo e telas; protótipos e análise da PF2; imagens
 │   └── pf3-avaliacao/            a fazer
 ├── spd/                          projeto Maven: gestão (JavaFX + SQLite), monitoramento (API + MongoDB), integrador
 └── ssu/

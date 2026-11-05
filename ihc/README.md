@@ -4,11 +4,13 @@ Projeto final de IHC do Mellona, feito individualmente por Bárbara Nogueira. O 
 
 | Etapa | Pasta | O que tem | Situação |
 | --- | --- | --- | --- |
-| PF1 — planejamento e coleta | [`pf1-planejamento/`](pf1-planejamento/) | [PF1.pdf](pf1-planejamento/PF1.pdf): pessoas-chave, impacto, processo de design, plano de coleta (estudo de campo em vídeos de apicultores e brainstorming), requisitos, perfis, personas e cenários; [diagramas](pf1-planejamento/diagramas/) de casos de uso e da atividade do modo visita | Pronta |
-| PF2 — guia de estilo e protótipo | [`pf2-prototipo/`](pf2-prototipo/) | [PF2.pdf](pf2-prototipo/PF2.pdf), versão completa; [PF2-resumida.pdf](pf2-prototipo/PF2-resumida.pdf); [especificacao-telas.pdf](pf2-prototipo/especificacao-telas.pdf), as 18 telas; [figuras](pf2-prototipo/figuras/) do guia de estilo e das telas, com as marcas da revisão | Pronta |
+| PF1 — planejamento e coleta | [`pf1-planejamento/`](pf1-planejamento/) | [PF1.md](pf1-planejamento/PF1.md): pessoas-chave, impacto, processo de design, plano de coleta (estudo de campo em vídeos de apicultores e brainstorming), requisitos, perfis, personas e cenários; [diagramas](pf1-planejamento/diagramas/) de casos de uso e da atividade do modo visita | Pronta |
+| PF2 — guia de estilo e protótipo | [`pf2-prototipo/`](pf2-prototipo/) | [Guia de estilo e especificação das telas](pf2-prototipo/guia-de-estilo-e-especificacao-das-telas.md): regras de design e as 18 telas; [Protótipos e análise da PF2](pf2-prototipo/prototipos-e-analise-pf2.md): ferramentas, navegação, capturas, princípios de IHC e os 25 problemas da revisão informal | Documentada; implementação parcial e ajustes pendentes |
 | PF3 — avaliação | [`pf3-avaliacao/`](pf3-avaliacao/) | Plano, execução e resultados da avaliação em aula | A fazer |
 
 ## Protótipo
+
+O guia detalhado, a versão resumida e a especificação das telas foram consolidados nos dois documentos acima. A inclusão do Figma está registrada como decisão de fluxo; links e evidências continuam pendentes. A revisão informal da PF2 não substitui a avaliação em sala da PF3.
 
 | Ferramenta | Link |
 | --- | --- |
